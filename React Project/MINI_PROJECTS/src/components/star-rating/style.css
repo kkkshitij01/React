@@ -1,0 +1,19 @@
+.star-rating {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  background-color: black;
+  height: 35vh;
+}
+.active {
+  cursor: pointer;
+  color: gold;
+}
+.inactive {
+  cursor: pointer;
+  color: grey;
+}
+h1 {
+  color: white;
+}
