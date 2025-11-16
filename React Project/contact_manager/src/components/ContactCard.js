@@ -1,15 +1,22 @@
 import user from "../images/user.png"
+import { Link } from "react-router-dom"
+
 export default function ContactCard({ contact, onDelete }) {
     return (
-        <div className="item" >
+        <div className="item  ">
             <img className="ui avatar image" src={user} alt="userImg" />
             <div className="content">
-                <div className="header">{contact.name}</div>
-                <div>{contact.email}</div>
+                <Link to={{ pathname: `/contact/${contact.id}` }} state={contact}>
+                    <div className="header">{contact.name}</div>
+                    <div style={{ color: "black" }}>{contact.email}</div>
+                </Link>
             </div>
-            <i style={{ color: "red" }} className="trash alternate outline icon"
-                onClick={() => { onDelete(contact.id) }}
+
+            <i
+                className="right floated  trash alternate icon "
+                style={{ color: "red", marginTop: "6px" }}
+                onClick={() => onDelete(contact.id)}
             />
-        </div>
-    )
+        </div >
+    );
 }

@@ -1,16 +1,19 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 
-export default function AddContact(prop) {
+export default function AddContact(props) {
+    const nevigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name === "" || email === "") {
             alert("Enter Valid Inputs")
             return;
         }
-        prop.contactDataToParent({ name, email });
+        props.contactDataToParent({ name, email });
         setName("");
         setEmail("");
+        nevigate("/");
     }
 
     const [name, setName] = useState("");

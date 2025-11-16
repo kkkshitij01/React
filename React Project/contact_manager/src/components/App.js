@@ -3,6 +3,9 @@ import AddContact from "./AddContact"
 import ContactList from "./ContactList"
 import '../style/App.css';
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom"
+import ContactDetails from "./ContactDetails";
+
 
 function App() {
 
@@ -34,12 +37,22 @@ function App() {
 
 
   return (
-    < div className="ui container">
+    <div className="ui container">
       <Header />
-      <AddContact contactDataToParent={addContainerHandler} />
-      <ContactList contacts={contacts} getContactId={removeContact} />
+      <Routes>
+        <Route
+          path="/"
+          element={<ContactList contacts={contacts} getContactId={removeContact} />}
+        />
+        <Route
+          path="/add"
+          element={<AddContact contactDataToParent={addContainerHandler} />}
+        />
+        <Route path="/contact/:id" element={<ContactDetails />} />
+      </Routes>
     </div>
   );
+
 }
 
 export default App;
