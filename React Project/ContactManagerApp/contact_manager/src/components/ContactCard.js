@@ -17,6 +17,11 @@ export default function ContactCard({ contact, onDelete }) {
                 style={{ color: "red", marginTop: "6px" }}
                 onClick={() => onDelete(contact.id)}
             />
+            <i
+                className="right floated  edit alternate icon "
+                style={{ color: "blue", marginTop: "6px", marginRight: "10px" }}
+                onClick={() => onDelete(contact.id)}
+            />
         </div >
     );
 }

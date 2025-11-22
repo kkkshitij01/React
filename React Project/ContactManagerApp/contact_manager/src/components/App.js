@@ -1,4 +1,5 @@
 import Header from "./Header"
+import api from "./api/contacts.js"
 import AddContact from "./AddContact"
 import ContactList from "./ContactList"
 import '../style/App.css';
@@ -11,26 +12,37 @@ function App() {
 
   const [contacts, setContacts] = useState([]);
 
-  const removeContact = (id) => {
-    let contactCopy = contacts.filter((contact) => contact.id !== id);
+  const removeContact = async (id) => {
+    await api.delete(`/contacts/${id}`);
+    const contactCopy = contacts.filter((contact) => contact.id !== id);
     setContacts(contactCopy);
   }
 
-  const addContainerHandler = (contact) => {
-    setContacts((prev) => [...prev, { id: Date.now(), ...contact }]);
-    console.log(contact)
+  const addContainerHandler = async (contact) => {
+    const request = {
+      id: Date.now(),
+      ...contact,
+    }
+    const response = await api.post("/contacts", request);
+    setContacts((prev) => [...prev, response.data]);
 
   }
-  useEffect(() => {
-    let retriveData = localStorage.getItem("example");
-    if (retriveData) {
-      setContacts(JSON.parse(retriveData));
-    }
-  }, [])
 
+  //Retrieve contacts
+  const retrieverContacts = async () => {
+    const response = await api.get("/contacts")
+    console.log(response);
+    return response.data;
+  }
   useEffect(() => {
-    localStorage.setItem("example", JSON.stringify(contacts));
-  }, [contacts])
+    const getAllContact = async () => {
+      const allContact = await retrieverContacts();
+      if (allContact) {
+        setContacts(allContact);
+      }
+    }
+    getAllContact();
+  }, [])
 
 
 
